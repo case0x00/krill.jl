@@ -1,0 +1,8 @@
+*.mp4
+
+# research
+research/
+.venv/
+
+# misc
+design
