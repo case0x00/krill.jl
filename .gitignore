@@ -1,8 +1,12 @@
+# animations (temp, ill include the final mp4)
 *.mp4
 
 # research
 research/
+design
+
+# virtualenv
 .venv/
 
-# misc
-design
+# stupid pycache
+__pycache__

@@ -11,7 +11,7 @@ for more information about the theory, see [theory](##theory).
 
 using `plot_j_variation()`, plots variation of the jacobi integral for various ranges to demonstrate the effect it has on the zero velocity curves (hill region).
 
-<p align="center"><img src="https://raw.githubusercontent.com/electric-coral/krill/master/src/CR3BP_jacobi_integral_variation.png"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/electric-coral/krill/master/plots/CR3BP_jacobi_integral_variation.png"/></p>
 
 
 ## program functionality
