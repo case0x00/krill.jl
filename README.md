@@ -4,20 +4,24 @@
 
 this program simulates solutions to the circular restricted three body problem (CR3BP) in the synodic reference frame.
 
-for more information about the theory, see [theory](##theory).
-
-
-## zero velocity curves
-
-using `plot_j_variation()`, plots variation of the jacobi integral for various ranges to demonstrate the effect it has on the zero velocity curves (hill region).
-
-<p align="center"><img src="https://raw.githubusercontent.com/electric-coral/krill/master/plots/CR3BP_jacobi_integral_variation.png"/></p>
-
+for more information about the theory, see [theory](#theory).
 
 ## program functionality
 
 * variation of the jacobi integral and animation of the change in zero velocity surface in the synodic frame of a 3 body system with lagrange points shown
 * animation of a third body in the sidereal frame of a 3 body system for a given jacobi energy with lagrange points shown
+
+## zero velocity curves (ZVC)
+
+using `plot_static()`, plots variation of the jacobi integral for various ranges to demonstrate the effect it has on the zero velocity curves (hill region).
+
+<p align="center"><img src="https://raw.githubusercontent.com/electric-coral/krill/master/plots/CR3BP_jacobi_integral_variation.png"/></p>
+
+using `plot_static_anim()` plots the variation of the jacobi integral as an animation.
+
+![](anims/ZVC.gif)
+
+
 
 ## dependencies
 

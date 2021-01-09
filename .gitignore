@@ -1,6 +1,3 @@
-# animations (temp, ill include the final mp4)
-*.mp4
-
 # research
 research/
 design
@@ -10,3 +7,5 @@ design
 
 # stupid pycache
 __pycache__
+
+CR3BP-synodic-frame.mp4

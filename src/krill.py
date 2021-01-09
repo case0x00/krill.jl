@@ -30,6 +30,8 @@ import dyn_utils as dyn
 # mass parameter of m2/m* = m2/(m1+m2)
 consts.set_mu(float(sys.argv[1]))
 
+PROGRAM = "static_anim"
+
 
 def RK4(initial_state):
     """
@@ -267,6 +269,66 @@ def plot_static():
 
 
 
+
+def plot_static_anim():
+    """
+    builds animation of variation of jacobi energy and
+    various ZVC variations
+    """
+
+    import matplotlib.animation as animation
+
+    fig, ax = plt.subplots()
+
+    x = np.linspace(consts.LOWERLIM, consts.UPPERLIM, 150)
+    y = np.linspace(consts.LOWERLIM, consts.UPPERLIM, 150)
+
+    X, Y = np.meshgrid(x,y)
+
+    r1 = ((X+consts.MU)**2 + Y**2)**(1/2)
+    r2 = ((X-(1-consts.MU))**2 + Y**2)**(1/2)
+
+    J = np.linspace(static.get_J("L1"),static.get_J("L4"),150)
+
+    # ZVC function
+    def ZVC(i):
+        return X**2 + Y**2 + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2 - J[i]
+    
+    # initial contour
+    global c
+    c = ax.contour(X,Y,ZVC(0),[0],colors="black")
+    #jlabel = ax.text(0.5,1.0, "", horizontalalignment="center",verticalalignment="center", transform=ax.transAxes)
+
+    # animation function
+    def animate(i):
+        global c
+        Z = ZVC(i)
+        for col in c.collections:
+            col.remove()
+        c = ax.contour(X,Y,Z,[0],colors="black")
+        ax.set_title(f"Jacobi integral J = {round(J[i],4):.4f} for the Earth-Moon system")
+        return c
+
+    # lagrange points
+    static.plot_lagrange_points()
+    # body 1 (larger)
+    plt.scatter(-consts.MU,0,c="royalblue",s=60)
+    # body 2 (smaller)
+    plt.scatter(1-consts.MU,0,c="slategray",s=20)
+
+    plt.xlim([-1,1])
+    plt.xticks(np.arange(consts.LOWERLIM,consts.UPPERLIM,step=consts.STEP))
+    plt.xlabel("x (nondim)")
+    plt.ylim([-1,1])
+    plt.yticks(np.arange(consts.LOWERLIM,consts.UPPERLIM,step=consts.STEP))
+    plt.ylabel("y (nondim)")
+    plt.grid("on",linestyle=":")
+    
+    anim = animation.FuncAnimation(fig, animate, frames=len(J), repeat=False)
+    anim.save("anims/ZVC.mp4", writer="ffmpeg", fps=15)
+
+
+
 def main():
     # plotting
     # https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.html
@@ -278,21 +340,27 @@ def main():
     matplotlib.rcParams['xtick.labelsize'] = 10.
     matplotlib.rcParams['ytick.labelsize'] = 10.
 
-
     tic = time.perf_counter()
-    plot_static()
 
-    # plot gif of orbits in synodic frame with J_{L2} value (so L1 keyhole exists)
+    if PROGRAM == "static":
+        print("BUILDING STATIC PLOT OF ZVC")
+        plot_static()
+    elif PROGRAM == "static_anim":
+        print("BUILDING ANIMATION OF ZVC")
+        plot_static_anim()
+    elif PROGRAM == "dynamic_anim":
+        print("NOT YET IMPLEMENTED")
 #    plot_synodic_gif(static.get_J("L2", consts.MU))
+    else:
+        print("PROGRAM not specified")
+        exit(-1)
 
     toc = time.perf_counter()
-    print(f"completed in {toc-tic:0.4f}s")
-
-
+    print(f"COMPLETED IN {toc-tic:0.4f}s")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("incorrect number of arguments") 
+        print("INCORRECT NUMBER OF ARGUMENTS") 
         exit(-1)
 
     main()
