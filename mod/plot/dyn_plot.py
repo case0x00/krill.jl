@@ -10,7 +10,7 @@ import mod.utils.dyn_utils as d_utils
 import mod.consts as consts
 
 
-def plot_synodic_gif():
+def plot_dynamic_anim():
     """
     solve for the initial conditions given some jacobi integral
     """

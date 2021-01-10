@@ -6,10 +6,11 @@ third body
 
 import math
 import tqdm
+from numpy import linalg
 
 import mod.consts as consts
 
-def RK4(initial_state):
+def old_RK4(initial_state):
     """
     uses the runge-kutta 4 method to approximate the solutions to
     the equations of motion for the third body and returns the x,y
@@ -76,7 +77,7 @@ def RK4(initial_state):
     return [rx_out,ry_out]
 
 
-def f(state):
+def old_f(state):
     """
     the CR3BP equations of motion. this is the function to
     apply RK4 to, which updates the acceleration
@@ -112,3 +113,92 @@ def f(state):
     #J = math.pow(rx,2) + math.pow(ry,2) + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2 - (math.pow(vx,2) + math.pow(vy,2))
 
     return [ax,ay]
+
+
+def RK4(initial_state):
+    """
+
+    """
+
+    rx = initial_state[0]
+    ry = initial_state[1]
+    vx = initial_state[2]
+    vy = initial_state[3]
+
+    x = [rx,ry]
+
+    # each k value represents
+    # [vx,vy,ax,ay]
+
+
+    # each f call requires a state, and returns the
+    # estimated state derivative
+    # h is a timestep, and by multiplying the
+    # state derivative by the timestep, it basically
+    # integrates and you add the old state after 
+    # 1 timestep and the new state
+    
+    # k1 = f(t, s(rx,ry,vx,vy))
+    k1 = f(t,x)
+
+    # k2 = f(t+dt, s(rx,ry,vx,vy) + dt*old_s(vx,vy,ax,ay))
+    k2 = f(t+h/2, x+h/2*k1)
+
+    k3 = f(t+h/2, x+h/2*k2)
+
+    k4 = f(t+h, x+h*k3)
+
+    # xf = s(rx,ry,vx,vy) + 1/6*(old_s(vx,vy,ax,ay))
+    # xf(rx,ry,vx,vy)
+    xf = x + 1/6*(k1 + 2*k2 + 2*k3 + k4)
+
+    # for each timestep, the RK4 solves for xf
+    # xf value encodes the updated position and velocites, which are fed back into the RK4
+    # to update the next position
+
+
+
+
+
+
+def f(t,state):
+    """
+    the CR3BP equations of motion
+
+    args:
+        state -- [rx,ry,vx,vy]
+    returns:
+        state -- [vx,vy,ax,ay]
+
+
+    i need a time variable
+
+    """
+    a = [0,0]
+
+    r = [state[0],state[1]]
+    v = [state[2],state[3]]
+
+    rb1 = [-consts.MU,0]
+    rb2 = [1-consts.MU,0]
+
+    r1 = [a-b for a,b in zip(r,rb1)]
+    r2 = [a-b for a,b in zip(r,rb2)]
+
+    r13 = linalg.norm(r1,2)**3
+    r32 = linalg.norm(r2,2)**3
+
+    c1 = (1-consts.MU)/r13
+    c2 = consts.MU/r23
+
+    a[0] = 2 * v[1] + r[0] - c1 * (r[0] + consts.MU) - c2 * (r[0] - (1-consts.MU))
+    a[1] = -2 * v[0] + r[1] - c1 * r[1] - c2 * r[1]
+
+    # position -- r(1x2) as input
+    # velocity -- v(1x2) as input
+    # acc -- a(1x2) as output
+
+    return [r[0],r[1],a[0],a[1]]
+
+
+

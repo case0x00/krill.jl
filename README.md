@@ -65,3 +65,11 @@ some good resources that I used
 * [Meiss, J. scholarpedia: hamiltonian systems](http://www.scholarpedia.org/article/Hamiltonian_systems)
 * [Gomez, D. and Barrabes, E. scholarpedia: space manifold dynamics](http://www.scholarpedia.org/article/Space_Manifold_dynamics)
 
+
+
+## future work
+
+* implement the RK4 in C++ to speed it up? thats probably the slowest part
+* eventually rebuild in pure C++ for 3D support and so I can build some crazy plots
+* lagrange point orbits (lissajous, lyapunov, distant retrograde, halo and near rectilinear halo orbits)
+* poincare map representations of central manifolds for lagrange points
