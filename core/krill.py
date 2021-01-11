@@ -37,7 +37,7 @@ consts.init_conds(float(sys.argv[2]),
 
 
 # program to execute
-PROGRAM = "static"
+PROGRAM = "dynamic_anim"
 
 def main():
     # initialize matplotlib params
@@ -53,7 +53,7 @@ def main():
         s_plot.plot_static_anim()
     elif PROGRAM == "dynamic_anim":
         print("BUILDING ANIMATION OF THIRD BODY")
-        d_plot.plot_synodic_gif()
+        d_plot.plot_dynamic_anim()
     else:
         print("PROGRAM not specified")
         exit(-1)
