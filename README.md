@@ -34,7 +34,6 @@ plots/          -- dir for outputs
 ## dependencies
 
 * matplotlib
-* tqdm
 
 ## usage
 

@@ -1,7 +1,5 @@
 """
 for static plots (ZVC)
-(its not really static since there is a ZVC anim, but its to differentiate
-between this and the orbit integration anim)
 """
 
 
@@ -11,10 +9,10 @@ import numpy as np
 import math
 
 import mod.consts as consts
-import mod.utils.static_utils as s_utils
+import mod.utils.static as s_utils
 
 
-def plot_lagrange_points():
+def plot_libration_points():
     """
     computes the position of the 5 lagrange points
     https://www.mat.univie.ac.at/~westra/lagrangepoints.pdf
@@ -81,7 +79,7 @@ def plot_ZVC(J):
 
     plt.contour(X,Y,Z,[0],colors="black")
     
-def plot_static():
+def plot():
     """
     builds 4 subplots with variations in jacobi integral
     to demonstrate the ZVC
@@ -91,8 +89,8 @@ def plot_static():
 
     ax = fig.add_subplot(221)
 
-    # lagrange points
-    plot_lagrange_points()
+    # libration points
+    plot_libration_points()
 
     # ZVC
     point = "L1"
@@ -117,8 +115,8 @@ def plot_static():
 
     ax = fig.add_subplot(222)
 
-    # lagrange points
-    plot_lagrange_points()
+    # libration points
+    plot_libration_points()
 
     # ZVC
     point = "L2"
@@ -142,8 +140,8 @@ def plot_static():
 
     ax = fig.add_subplot(223)
 
-    # lagrange points
-    plot_lagrange_points()
+    # libration points
+    plot_libration_points()
 
     # ZVC
     point = "L3"
@@ -167,8 +165,8 @@ def plot_static():
 
     ax = fig.add_subplot(224)
 
-    #lagrange points
-    plot_lagrange_points()
+    #libration points
+    plot_libration_points()
 
     # ZVC
     point = "L4"
@@ -195,7 +193,7 @@ def plot_static():
     #plt.subplots_adjust(bottom=0.15,top=0.95)
     plt.savefig(f"{consts.PLOT_DIR}/CR3BP_jacobi_integral_variation.png")
 
-def plot_static_anim():
+def plot_anim():
     """
     builds animation of variation of jacobi energy and
     various ZVC variations
@@ -234,8 +232,8 @@ def plot_static_anim():
         ax.set_title(f"J = {round(J[i],4):.4f} for the Earth-Moon system")
         return c
 
-    # lagrange points
-    plot_lagrange_points()
+    # libration points
+    plot_libration_points()
     # body 1 (larger)
     plt.scatter(-consts.MU,0,c="royalblue",s=60)
     # body 2 (smaller)

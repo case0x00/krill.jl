@@ -3,7 +3,6 @@ utilities for the main krill script
 includes:
 getting jacobi integral at a specified libration point
 
-
 jacobi integral at L1 is 3.1885282305574663
 jacobi integral at L2 is 3.1730187952481117
 jacobi integral at L3 is 3.01215069525063
@@ -19,7 +18,7 @@ import mod.consts as consts
 
 def get_J_point(point):
     """
-    gets the jacobi integral at a specified lagrange point
+    gets the jacobi integral at a specified libration point
 
     args:
         - point: string (L1-L5)
@@ -67,5 +66,26 @@ def get_J_state(x):
     r1 = ((x[0]+consts.MU)**2 + x[1]**2)**(1/2)
     r2 = ((x[0]-(1-consts.MU))**2 + x[1]**2)**(1/2)
 
-    J = x[0]**2 + x[1]**2 + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2 - (x[2]**2 + x[3]**2)
+    #J = x[0]**2 + x[1]**2 + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2 - (x[2]**2 + x[3]**2)
+    J = -(x[2]**2 + x[3]**2)/2 + 2*((x[0]**2 + x[1]**2)/2 + (1-consts.MU)/r1 + consts.MU/r2)
+
     return J
+
+def get_vel_mag(x, J):
+    """
+    computes the magnitude of the velocity vector
+
+    args:
+        - x: state [rx,ry,vx,vy]
+
+    returns:
+        - vel: velocity
+    """
+
+    r1 = ((x[0]+consts.MU)**2 + x[1]**2)**(1/2) 
+    r2 = ((x[0]-(1-consts.MU))**2 + x[1]**2)**(1/2) 
+
+    potential = (1/2)*(x[0]**2 + x[1]**2) + (1-consts.MU)/r1 + consts.MU/r2
+
+    vel = (2*potential - J)**2
+    return vel

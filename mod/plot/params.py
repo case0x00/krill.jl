@@ -14,3 +14,4 @@ def init_params():
     matplotlib.rcParams['axes.labelsize'] = 10.
     matplotlib.rcParams['xtick.labelsize'] = 10.
     matplotlib.rcParams['ytick.labelsize'] = 10.
+    matplotlib.rcParams["contour.linewidth"] = 1.

@@ -22,8 +22,8 @@ sys.path.append(parent_dir)
 
 import mod.consts as consts
 import mod.plot.params as p
-import mod.plot.static_plot as s_plot
-import mod.plot.dyn_plot as d_plot
+import mod.plot.static as s
+import mod.plot.dynamic as d
 
 
 # mass parameter of m2/m* = m2/(m1+m2)
@@ -37,7 +37,7 @@ consts.init_conds(float(sys.argv[2]),
 
 
 # program to execute
-PROGRAM = "static_anim"
+PROGRAM = "dynamic_anim"
 
 def main():
     # initialize matplotlib params
@@ -47,13 +47,13 @@ def main():
 
     if PROGRAM == "static":
         print("BUILDING STATIC PLOT OF ZVC")
-        s_plot.plot_static()
+        s.plot()
     elif PROGRAM == "static_anim":
         print("BUILDING ANIMATION OF ZVC")
-        s_plot.plot_static_anim()
+        s.plot_anim()
     elif PROGRAM == "dynamic_anim":
         print("BUILDING ANIMATION OF THIRD BODY")
-        d_plot.plot_dynamic_anim()
+        d.plot_anim()
     else:
         print("PROGRAM not specified")
         exit(-1)
