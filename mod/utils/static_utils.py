@@ -15,43 +15,57 @@ J3 < J < J2 = 3.10
 J4 < J < J3 = 2.99
 """
 
-import math
-
 import mod.consts as consts
 
-def get_J(point):
+def get_J_point(point):
     """
     gets the jacobi integral at a specified lagrange point
 
     args:
-        point -- string (L1-L5)
+        - point: string (L1-L5)
     
     returns:
-        J -- jacobi integral
+        - J: jacobi integral
     """
 
     if point == "L1":
-        rx = 1-math.pow(consts.MU/3,1/3)
+        rx = 1-(consts.MU/3)**(1/3)
         ry = 0
     elif point == "L2":
-        rx = (1-consts.MU)*(1+math.pow(consts.MU/3,1/3))
+        rx = (1-consts.MU)*(1+(consts.MU/3)**(1/3))
         ry = 0
     elif point == "L3":
         rx = -(1-consts.MU)*(1+17/12 * consts.MU)
         ry = 0
     elif point == "L4":
         rx = 1/2-consts.MU
-        ry = math.sqrt(3)/2 
+        ry = 3**(1/2)/2
     elif point == "L5":
         rx = 1/2-consts.MU
-        ry = -math.sqrt(3)/2 
+        ry = -3**(1/2)/2
     else:
         print(f"no point exists for argument {point}")
         exit(-1)
 
-    r1 = math.sqrt(math.pow((rx+consts.MU),2) + math.pow(ry,2))
-    r2 = math.sqrt(math.pow((rx-(1-consts.MU)),2) + math.pow(ry,2))
+    r1 = ((rx+consts.MU)**2 + ry**2)**(1/2)
+    r2 = ((rx-(1-consts.MU))**2 + ry**2)**(1/2)
 
-    J = math.pow(rx,2) + math.pow(ry,2) + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2
+    J = rx**2 + ry**2 + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2
+    return J
 
+def get_J_state(x):
+    """
+    gets the jacobi integral at a specified state
+
+    args:
+        - x: state [rx,ry,vx,vy]
+
+    returns:
+        - J: jacobi integral
+    """
+
+    r1 = ((x[0]+consts.MU)**2 + x[1]**2)**(1/2)
+    r2 = ((x[0]-(1-consts.MU))**2 + x[1]**2)**(1/2)
+
+    J = x[0]**2 + x[1]**2 + (2*(1-consts.MU))/r1 + (2*consts.MU)/r2 - (x[2]**2 + x[3]**2)
     return J

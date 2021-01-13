@@ -65,7 +65,6 @@ elif FUNC == "CR3BP":
         ax = 2 * vy + rx - c1 * (rx + consts.MU) - c2 * (rx - (1-consts.MU))
         ay = -2 * vx + ry - c1 * ry - c2 * ry
 
-
         return [vx, vy, ax, ay]
 
 else:

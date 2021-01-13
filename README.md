@@ -69,7 +69,6 @@ some good resources that I used
 
 ## future work
 
-* implement the RK4 in C++ to speed it up? thats probably the slowest part
 * eventually rebuild in pure C++ for 3D support and so I can build some crazy plots
 * lagrange point orbits (lissajous, lyapunov, distant retrograde, halo and near rectilinear halo orbits)
 * poincare map representations of central manifolds for lagrange points

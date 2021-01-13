@@ -3,9 +3,9 @@ constants
 """
 
 # plot limits
-LOWERLIM = -1.2
-UPPERLIM = 1.4
-STEP = 0.2
+LOWERLIM = -1.5
+UPPERLIM = 1.5
+STEP = 0.5
 PLOT_DIR = "plots"
 
 def set_mu(mu):

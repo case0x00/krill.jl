@@ -24,13 +24,17 @@ def plot_dynamic_anim():
 
     x0 = [consts.RX0,consts.RY0,consts.VX0,consts.VY0]
     print(f"INITIAL CONDS: {x0}")
-    rx, ry, _, _ = d_utils.sim(x0, t0, h, tf)
+    #rx, ry, _, _ = d_utils.sim(x0, t0, h, tf)
 
     # plot the positions of the third body
     fig, ax = plt.subplots()
+    
 
     #s_plot.plot_lagrange_points()
-    #s_plot.plot_ZVC(s_utils.get_J("L1"))
+    print(s_utils.get_J_state(x0))
+#    s_plot.plot_ZVC(s_utils.get_J_state(x0))
 
-    plt.plot(rx,ry)
+    s_plot.plot_ZVC(3.18)
+
+#    plt.plot(rx,ry)
     plt.show()

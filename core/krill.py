@@ -37,7 +37,7 @@ consts.init_conds(float(sys.argv[2]),
 
 
 # program to execute
-PROGRAM = "dynamic_anim"
+PROGRAM = "static_anim"
 
 def main():
     # initialize matplotlib params
